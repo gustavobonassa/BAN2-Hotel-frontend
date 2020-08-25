@@ -1,84 +1,72 @@
-/*!
+import React from "react";
+import Hotel from "views/Hotel";
+import NovoHotel from "views/Hotel/NovoHotel.js";
+import HotelInfo from "views/Hotel/HotelInfo.js";
+import Cliente from "views/Cliente";
+import NovoCliente from "views/Cliente/NovoCliente";
+import { FaHotel, FaUser } from "react-icons/fa"
 
-=========================================================
-* Black Dashboard React v1.1.0
-=========================================================
+import Login from "./views/Login";
+import history from "./history";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import api from './services/api';
+import { ConnectedRouter } from 'connected-react-router'
 
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import Dashboard from "views/Dashboard.js";
-import Icons from "views/Icons.js";
-import Map from "views/Map.js";
-import Notifications from "views/Notifications.js";
-import TableList from "views/TableList.js";
-import Typography from "views/Typography.js";
-import UserProfile from "views/UserProfile.js";
+import AdminLayout from "layouts/Admin/Admin.js";
+import NovoQuarto from "views/Quarto/NovoQuarto";
 
 var routes = [
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-chart-pie-36",
-    component: Dashboard,
-    layout: "/admin"
+    path: "/hotel",
+    name: "Hoteis",
+    icon: () => <FaHotel size={15} />,
+    component: Hotel,
+    layout: ""
   },
   {
-    path: "/icons",
-    name: "Icons",
-    rtlName: "الرموز",
-    icon: "tim-icons icon-atom",
-    component: Icons,
-    layout: "/admin"
-  },
-  {
-    path: "/map",
-    name: "Map",
-    rtlName: "خرائط",
-    icon: "tim-icons icon-pin",
-    component: Map,
-    layout: "/admin"
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    rtlName: "إخطارات",
-    icon: "tim-icons icon-bell-55",
-    component: Notifications,
-    layout: "/admin"
-  },
-  {
-    path: "/user-profile",
-    name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: "tim-icons icon-single-02",
-    component: UserProfile,
-    layout: "/admin"
-  },
-  {
-    path: "/tables",
-    name: "Table List",
-    rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-puzzle-10",
-    component: TableList,
-    layout: "/admin"
-  },
-  {
-    path: "/typography",
-    name: "Typography",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-align-center",
-    component: Typography,
-    layout: "/admin"
+    path: "/clientes",
+    name: "Clientes",
+    icon: () => <FaUser size={15} />,
+    component: Cliente,
+    layout: ""
   },
 ];
+
+const Routes = () => {
+  const signed = useSelector(state => state.auth.signed);
+  const token = useSelector(state => state.auth.token);
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return (
+    <ConnectedRouter history={history}>
+      <Switch>
+        {signed ? (
+          <>
+            <Route exact path="/hotel" render={props => <AdminLayout {...props} content={Hotel} />} />
+            <Route exact path="/hotel/:id" render={props => <AdminLayout {...props} content={HotelInfo} />} />
+            <Route exact path="/novohotel" render={props => <AdminLayout {...props} content={NovoHotel} />} />
+            <Route exact path="/novoquarto/:id" render={props => <AdminLayout {...props} content={NovoQuarto} />} />
+            <Route exact path="/clientes" render={props => <AdminLayout {...props} content={Cliente} />} />
+            <Route exact path="/novocliente" render={props => <AdminLayout {...props} content={NovoCliente} />} />
+            {/* <Redirect exact path="/" to="/hotel" /> */}
+          </>
+        ) : (
+          <>
+            <Redirect from="/" to="/login" />
+            <Route path="/login" component={Login} />
+          </>
+        )}
+      </Switch>
+    </ConnectedRouter>
+  );
+};
+
+export {
+  Routes,
+  history,
+}
+
 export default routes;

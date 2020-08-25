@@ -19,6 +19,8 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 
+import { signOut } from "../../store/modules/auth/actions";
+
 // reactstrap components
 import {
   Collapse,
@@ -34,6 +36,7 @@ import {
   Container,
   Modal
 } from "reactstrap";
+import { connect } from "react-redux";
 
 class AdminNavbar extends React.Component {
   constructor(props) {
@@ -127,7 +130,7 @@ class AdminNavbar extends React.Component {
             </button>
             <Collapse navbar isOpen={this.state.collapseOpen}>
               <Nav className="ml-auto" navbar>
-                <UncontrolledDropdown nav>  
+                <UncontrolledDropdown nav>
                 </UncontrolledDropdown>
                 <UncontrolledDropdown nav>
                   <DropdownToggle
@@ -144,15 +147,17 @@ class AdminNavbar extends React.Component {
                     <p className="d-lg-none">Log out</p>
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
-                    <NavLink tag="li">
+                    {/* <NavLink tag="li">
                       <DropdownItem className="nav-item">Profile</DropdownItem>
                     </NavLink>
                     <NavLink tag="li">
                       <DropdownItem className="nav-item">Settings</DropdownItem>
                     </NavLink>
-                    <DropdownItem divider tag="li" />
+                    <DropdownItem divider tag="li" /> */}
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">Log out</DropdownItem>
+                      <DropdownItem className="nav-item" onClick={() => this.props.signOut()}>
+                        Sair
+                      </DropdownItem>
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown>
@@ -184,4 +189,10 @@ class AdminNavbar extends React.Component {
   }
 }
 
-export default AdminNavbar;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signOut: () => dispatch(signOut())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(AdminNavbar);

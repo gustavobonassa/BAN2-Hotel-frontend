@@ -71,7 +71,7 @@ class Sidebar extends React.Component {
             onClick={this.props.toggleSidebar}
           >
             <div className="logo-img">
-              <img src={logo.imgSrc} alt="react-logo" />
+              <img src={logo.imgSrc} alt="react-logo" style={{ borderRadius: 0 }} />
             </div>
           </a>
         );
@@ -93,7 +93,7 @@ class Sidebar extends React.Component {
             onClick={this.props.toggleSidebar}
           >
             <div className="logo-img">
-              <img src={logo.imgSrc} alt="react-logo" />
+              <img src={logo.imgSrc} alt="react-logo" style={{ borderRadius: 0 }} />
             </div>
           </Link>
         );
@@ -120,6 +120,8 @@ class Sidebar extends React.Component {
           <Nav>
             {routes.map((prop, key) => {
               if (prop.redirect) return null;
+              if (!prop.icon) return null;
+              const Icon = prop.icon;
               return (
                 <li
                   className={
@@ -129,18 +131,20 @@ class Sidebar extends React.Component {
                   key={key}
                 >
                   <NavLink
-                    to={prop.layout + prop.path}
+                    to={prop.path}
                     className="nav-link"
                     activeClassName="active"
                     onClick={this.props.toggleSidebar}
                   >
-                    <i className={prop.icon} />
+                    <i>
+                      <Icon />
+                    </i>
                     <p>{rtlActive ? prop.rtlName : prop.name}</p>
                   </NavLink>
                 </li>
               );
             })}
-            <li className="">
+            {/* <li className="">
               <a href="#pablo" data-toggle="collapse" aria-expanded= {this.state.isOpen ? "true" : "false"} onClick={() => this.setState({ isOpen: !this.state.isOpen })}>
                 <i className="tim-icons icon-notes"></i>
                 <p>Hotel Legal<b className="caret"></b>
@@ -164,7 +168,7 @@ class Sidebar extends React.Component {
                     </li>
                 </ul>
               </div>
-            </li>
+            </li> */}
           </Nav>
         </div>
       </div>

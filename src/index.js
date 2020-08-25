@@ -17,23 +17,34 @@
 */
 import React from "react";
 import ReactDOM from "react-dom";
-import { createBrowserHistory } from "history";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
-
-import AdminLayout from "layouts/Admin/Admin.js";
 
 import "assets/scss/black-dashboard-react.scss";
 import "assets/demo/demo.css";
 import "assets/css/nucleo-icons.css";
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
+import { persistor, store } from "./store";
+import { Provider } from 'react-redux';
 
-const hist = createBrowserHistory();
+import ReduxToastr from 'react-redux-toastr';
+import { Routes } from "./routes";
+import { PersistGate } from 'redux-persist/integration/react'
 
 ReactDOM.render(
-  <Router history={hist}>
-    <Switch>
-      <Route path="/admin" render={props => <AdminLayout {...props} />} />
-      <Redirect from="/" to="/admin/dashboard" />
-    </Switch>
-  </Router>,
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <Routes />
+      <ReduxToastr
+        timeOut={4000}
+        newestOnTop={false}
+        preventDuplicates
+        position="bottom-right"
+        getState={(state) => state.toastr} // This is the default
+        transitionIn="fadeIn"
+        transitionOut="fadeOut"
+        progressBar
+        closeOnToastrClick
+      />
+    </PersistGate>
+  </Provider>,
   document.getElementById("root")
 );

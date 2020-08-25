@@ -24,6 +24,9 @@ class FixedPlugin extends Component {
       classes: "dropdown show-dropdown"
     };
   }
+  componentDidMount() {
+    document.body.classList.add("white-content");
+  }
   handleClick = () => {
     if (this.state.classes === "dropdown show-dropdown") {
       this.setState({ classes: "dropdown show-dropdown show" });

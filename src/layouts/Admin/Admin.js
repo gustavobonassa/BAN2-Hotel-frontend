@@ -28,7 +28,7 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
 
-import logo from "assets/img/react-logo.png";
+import logo from "assets/img/hotel.png";
 
 var ps;
 
@@ -36,7 +36,7 @@ class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      backgroundColor: "primary",
+      backgroundColor: "blue",
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1
     };
@@ -77,21 +77,6 @@ class Admin extends React.Component {
     document.documentElement.classList.toggle("nav-open");
     this.setState({ sidebarOpened: !this.state.sidebarOpened });
   };
-  getRoutes = routes => {
-    return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
   handleBgClick = color => {
     this.setState({ backgroundColor: color });
   };
@@ -108,6 +93,7 @@ class Admin extends React.Component {
     return "Brand";
   };
   render() {
+    const Content = this.props.content || null;
     return (
       <>
         <div className="wrapper">
@@ -133,10 +119,7 @@ class Admin extends React.Component {
               toggleSidebar={this.toggleSidebar}
               sidebarOpened={this.state.sidebarOpened}
             />
-            <Switch>
-              {this.getRoutes(routes)}
-              <Redirect from="*" to="/admin/dashboard"/>
-            </Switch>
+            <Content {...this.props} />
             {// we don't want the Footer to be rendered on map page
             this.props.location.pathname.indexOf("maps") !== -1 ? null : (
               <Footer fluid />
