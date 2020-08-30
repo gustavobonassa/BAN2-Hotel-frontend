@@ -30,11 +30,11 @@ export function* getTipoQuarto({ payload }) {
 
 export function* newTipoQuarto({ payload }) {
   const {
-    numero, andar, tipo, id
+    preco, camaExtra, id, tipo,
   } = payload.tipoQuartoInfo;
   try {
     const response = yield call(api.post, 'tipoquarto', {
-      numero, andar, id_tipo_quarto: tipo, id_hotel: id
+      tipo, id_hotel: id, preco, cama_extra: camaExtra,
     });
 
     if (response) {

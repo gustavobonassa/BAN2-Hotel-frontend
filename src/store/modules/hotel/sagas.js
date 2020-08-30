@@ -4,7 +4,7 @@ import { actions as toastrActions } from 'react-redux-toastr';
 import api from '../../../services/api';
 import { push } from 'connected-react-router';
 
-import { getHotelsSuccess, getHotelSuccess } from './actions';
+import { getHotelsSuccess, getHotelSuccess, getHotelsRequest } from './actions';
 
 export function* getHotel({ payload }) {
   const { id } = payload;
@@ -70,8 +70,34 @@ export function* newHotel({ payload }) {
   }
 }
 
+export function* delHotel({ payload }) {
+  const {
+    id,
+  } = payload;
+  try {
+    const response = yield call(api.delete, `hotel/${id}`);
+
+    if (response) {
+      // const hotel = response.data;
+
+      yield put(toastrActions.add({
+        type: 'success',
+        title: response.data.message,
+      }));
+      yield put(getHotelsRequest());
+    }
+  } catch (err) {
+
+    yield put(toastrActions.add({
+      type: 'error',
+      title: 'Falha ao deletar o hotel',
+    }))
+  }
+}
+
 export default all([
   takeLatest('@hotel/GET_SINGLE_HOTEL_REQUEST', getHotel),
   takeLatest('@hotel/GET_HOTEL_REQUEST', getHotels),
   takeLatest('@hotel/NEW_HOTEL_REQUEST', newHotel),
+  takeLatest('@hotel/DEL_HOTEL_REQUEST', delHotel),
 ]);

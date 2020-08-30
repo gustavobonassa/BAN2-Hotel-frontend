@@ -15,6 +15,9 @@ import { ConnectedRouter } from 'connected-react-router'
 
 import AdminLayout from "layouts/Admin/Admin.js";
 import NovoQuarto from "views/Quarto/NovoQuarto";
+import NovoTipoQuarto from "views/TipoQuarto/NovoTipoQuarto";
+import NovaReserva from "views/Reserva/NovaReserva";
+import NovaEstadia from "views/Estadia/NovaEstadia";
 
 var routes = [
   {
@@ -49,9 +52,12 @@ const Routes = () => {
             <Route exact path="/hotel/:id" render={props => <AdminLayout {...props} content={HotelInfo} />} />
             <Route exact path="/novohotel" render={props => <AdminLayout {...props} content={NovoHotel} />} />
             <Route exact path="/novoquarto/:id" render={props => <AdminLayout {...props} content={NovoQuarto} />} />
+            <Route exact path="/novotipodequarto/:id" render={props => <AdminLayout {...props} content={NovoTipoQuarto} />} />
+            <Route exact path="/novareserva/:id" render={props => <AdminLayout {...props} content={NovaReserva} />} />
+            <Route exact path="/hotel/:idHotel/estadia/:id" render={props => <AdminLayout {...props} content={NovaEstadia} />} />
             <Route exact path="/clientes" render={props => <AdminLayout {...props} content={Cliente} />} />
             <Route exact path="/novocliente" render={props => <AdminLayout {...props} content={NovoCliente} />} />
-            {/* <Redirect exact path="/" to="/hotel" /> */}
+            <Redirect exact path="/" to="/hotel" />
           </>
         ) : (
           <>

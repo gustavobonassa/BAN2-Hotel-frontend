@@ -14,37 +14,24 @@ import {
   Input,
   CardFooter,
 } from "reactstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { getTipoQuartoRequest } from "../../store/modules/tipoQuarto/actions";
+import { newTipoQuartoRequest } from "../../store/modules/tipoQuarto/actions";
 import { Link } from "react-router-dom";
-import { newQuartoRequest } from "store/modules/quarto/actions";
 
-
-const NovoQuarto = (props) => {
+const NovoTipoQuarto = (props) => {
   const dispatch = useDispatch();
-  const [numero, setNumero] = React.useState("");
-  const [andar, setAndar] = React.useState("");
+  const [preco, setPreco] = React.useState("");
+  const [camaExtra, setCamaExtra] = React.useState("");
+  const [tipo, setTipo] = React.useState("");
 
   const id = props.match.params.id;
 
-  const tipoQuarto = useSelector(state => state.tipoQuarto.tipoQuarto);
-  const [tipo, setTipo] = React.useState(tipoQuarto.lenght ? tipoQuarto[0].id : "");
-  React.useEffect(() => {
-    if (tipoQuarto && tipoQuarto[0]) {
-      setTipo(tipoQuarto[0].id);
-    }
-  }, [tipoQuarto]);
-
-  React.useEffect(() => {
-    dispatch(getTipoQuartoRequest(parseInt(id)));
-  }, [dispatch, id]);
-
   const submitForm = () => {
-    const quartoInfo = {
-      numero, andar, tipo, id
+    const tipoQuartoInfo = {
+      preco, camaExtra, id, tipo,
     }
-    dispatch(newQuartoRequest(quartoInfo));
+    dispatch(newTipoQuartoRequest(tipoQuartoInfo));
   }
 
   return (
@@ -54,7 +41,7 @@ const NovoQuarto = (props) => {
           <Col lg="12" md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Novo Quarto</CardTitle>
+                <CardTitle tag="h4">Novo Tipo de Quarto</CardTitle>
               </CardHeader>
               <CardBody>
                 <Row form>
@@ -74,53 +61,38 @@ const NovoQuarto = (props) => {
                     <FormGroup>
                       <Label for="nome">Tipo de quarto</Label>
                       <Input
-                        type="select"
-                        placeholder="Selecione o tipo"
+                        type="text"
+                        placeholder="Tipo de quarto"
                         value={tipo}
                         onChange={(e) => setTipo(e.target.value)}
-                      >
-                        {tipoQuarto.map(tipo => (
-                          <option value={tipo.id}>{tipo.tipo}</option>
-                        ))}
-                      </Input>
+                      />
                     </FormGroup>
                   </Col>
                 </Row>
                 <Row form>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="nome">Número do quarto</Label>
+                      <Label for="nome">Preço</Label>
                       <Input
                         type="text"
-                        placeholder="Número do quarto"
-                        value={numero}
-                        onChange={(e) => setNumero(e.target.value)}
+                        placeholder="Preço"
+                        value={preco}
+                        onChange={(e) => setPreco(e.target.value)}
                       />
                     </FormGroup>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="nome">Andar</Label>
+                      <Label for="nome">Cama extra</Label>
                       <Input
                         type="text"
-                        placeholder="Andar"
-                        value={andar}
-                        onChange={(e) => setAndar(e.target.value)}
+                        placeholder="Cama extra"
+                        value={camaExtra}
+                        onChange={(e) => setCamaExtra(e.target.value)}
                       />
                     </FormGroup>
                   </Col>
                 </Row>
-                {/* <FormGroup>
-                  <Label for="telefone">Telefone</Label>
-                  <Input
-                    type="text"
-                    id="telefone"
-                    placeholder="Telefone"
-                    value={telefone}
-                    onChange={(e) => setTelefone(e.target.value)}
-                  />
-                </FormGroup> */}
-
               </CardBody>
               <CardFooter style={{ textAlign: "right" }}>
                 <Button onClick={() => submitForm()}>Enviar</Button>
@@ -136,4 +108,4 @@ const NovoQuarto = (props) => {
   );
 }
 
-export default NovoQuarto;
+export default NovoTipoQuarto;

@@ -33,9 +33,13 @@ export function* newCliente({ payload }) {
       rua, bairro, cidade, estado, numero, nome, telefone, rg,
     });
 
-    if (response) {
-      // const cliente = response.data;
-
+    const cliente = response.data;
+    if (cliente.error) {
+      yield put(toastrActions.add({
+        type: 'error',
+        title: cliente.error,
+      }));
+    } else {
       yield put(toastrActions.add({
         type: 'success',
         title: 'Cliente criado com sucesso',

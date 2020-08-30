@@ -5,6 +5,8 @@ import hotel from './hotel/reducer';
 import cliente from './cliente/reducer';
 import tipoQuarto from './tipoQuarto/reducer';
 import quarto from './quarto/reducer';
+import reserva from './reserva/reducer';
+import estadia from './estadia/reducer';
 import { reducer as toastr } from 'react-redux-toastr';
 import { connectRouter } from 'connected-react-router';
 
@@ -15,5 +17,7 @@ export default history => combineReducers({
   toastr,
   tipoQuarto,
   quarto,
+  reserva,
+  estadia,
   router: connectRouter(history)
 });

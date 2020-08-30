@@ -5,6 +5,8 @@ import hotel from './hotel/sagas';
 import cliente from './cliente/sagas';
 import tipoQuarto from './tipoQuarto/sagas';
 import quarto from './quarto/sagas';
+import reserva from './reserva/sagas';
+import estadia from './estadia/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -13,5 +15,7 @@ export default function* rootSaga() {
     cliente,
     tipoQuarto,
     quarto,
+    reserva,
+    estadia,
   ]);
 }

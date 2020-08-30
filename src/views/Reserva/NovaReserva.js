@@ -18,17 +18,21 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getTipoQuartoRequest } from "../../store/modules/tipoQuarto/actions";
 import { Link } from "react-router-dom";
-import { newQuartoRequest } from "store/modules/quarto/actions";
+import { getClientesRequest } from "store/modules/cliente/actions";
+import { newReservaRequest } from "store/modules/reserva/actions";
 
 
-const NovoQuarto = (props) => {
+const NovaReserva = (props) => {
   const dispatch = useDispatch();
-  const [numero, setNumero] = React.useState("");
-  const [andar, setAndar] = React.useState("");
+  const [cliente, setCliente] = React.useState("");
+  const [dataEntrada, setDataEntrada] = React.useState("");
+  const [dataSaida, setDataSaida] = React.useState("");
 
   const id = props.match.params.id;
 
   const tipoQuarto = useSelector(state => state.tipoQuarto.tipoQuarto);
+  const clientes = useSelector(state => state.cliente.clientes);
+
   const [tipo, setTipo] = React.useState(tipoQuarto.lenght ? tipoQuarto[0].id : "");
   React.useEffect(() => {
     if (tipoQuarto && tipoQuarto[0]) {
@@ -38,13 +42,15 @@ const NovoQuarto = (props) => {
 
   React.useEffect(() => {
     dispatch(getTipoQuartoRequest(parseInt(id)));
+    dispatch(getClientesRequest());
   }, [dispatch, id]);
 
   const submitForm = () => {
-    const quartoInfo = {
-      numero, andar, tipo, id
+    const reservaInfo = {
+      cliente, dataEntrada, dataSaida, tipo, id
     }
-    dispatch(newQuartoRequest(quartoInfo));
+    console.log(reservaInfo)
+    dispatch(newReservaRequest(reservaInfo));
   }
 
   return (
@@ -54,7 +60,7 @@ const NovoQuarto = (props) => {
           <Col lg="12" md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Novo Quarto</CardTitle>
+                <CardTitle tag="h4">Nova reserva</CardTitle>
               </CardHeader>
               <CardBody>
                 <Row form>
@@ -72,15 +78,33 @@ const NovoQuarto = (props) => {
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="nome">Tipo de quarto</Label>
+                      <Label for="nome">Tipo de quarto pretendido</Label>
                       <Input
                         type="select"
                         placeholder="Selecione o tipo"
                         value={tipo}
                         onChange={(e) => setTipo(e.target.value)}
                       >
-                        {tipoQuarto.map(tipo => (
-                          <option value={tipo.id}>{tipo.tipo}</option>
+                        {tipoQuarto.map((tipo,i) => (
+                          <option key={i} value={tipo.id}>{tipo.tipo}</option>
+                        ))}
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row form>
+                  <Col md={12}>
+                    <FormGroup>
+                      <Label for="nome">Cliente</Label>
+                      <Input
+                        type="select"
+                        placeholder="Selecione o cliente"
+                        value={cliente}
+                        onChange={(e) => setCliente(e.target.value)}
+                      >
+                        <option value="">Selecione um cliente</option>
+                        {clientes.map((cli,i) => (
+                          <option key={i} value={cli.id}>{cli.nome}</option>
                         ))}
                       </Input>
                     </FormGroup>
@@ -89,37 +113,31 @@ const NovoQuarto = (props) => {
                 <Row form>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="nome">Número do quarto</Label>
+                      <Label for="exampleDate">Data entrada</Label>
                       <Input
-                        type="text"
-                        placeholder="Número do quarto"
-                        value={numero}
-                        onChange={(e) => setNumero(e.target.value)}
+                        type="date"
+                        name="date"
+                        id="exampleDate"
+                        placeholder="date placeholder"
+                        value={dataEntrada}
+                        onChange={(e) => setDataEntrada(e.target.value)}
                       />
                     </FormGroup>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="nome">Andar</Label>
+                    <Label for="exampleDate">Data saída</Label>
                       <Input
-                        type="text"
-                        placeholder="Andar"
-                        value={andar}
-                        onChange={(e) => setAndar(e.target.value)}
+                        type="date"
+                        name="date"
+                        id="exampleDate"
+                        placeholder="date placeholder"
+                        value={dataSaida}
+                        onChange={(e) => setDataSaida(e.target.value)}
                       />
                     </FormGroup>
                   </Col>
                 </Row>
-                {/* <FormGroup>
-                  <Label for="telefone">Telefone</Label>
-                  <Input
-                    type="text"
-                    id="telefone"
-                    placeholder="Telefone"
-                    value={telefone}
-                    onChange={(e) => setTelefone(e.target.value)}
-                  />
-                </FormGroup> */}
 
               </CardBody>
               <CardFooter style={{ textAlign: "right" }}>
@@ -136,4 +154,4 @@ const NovoQuarto = (props) => {
   );
 }
 
-export default NovoQuarto;
+export default NovaReserva;

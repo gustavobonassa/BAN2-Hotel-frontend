@@ -38,3 +38,10 @@ export function newHotelSuccess(hotelInfo) {
     payload: { hotelInfo },
   };
 }
+
+export function delHotelRequest(id) {
+  return {
+    type: '@hotel/DEL_HOTEL_REQUEST',
+    payload: { id },
+  };
+}

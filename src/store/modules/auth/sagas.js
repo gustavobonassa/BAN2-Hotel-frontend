@@ -4,6 +4,7 @@ import { actions as toastrActions } from 'react-redux-toastr';
 import api from '../../../services/api';
 
 import { signInSuccess, signFailure, } from './actions';
+import { push } from 'connected-react-router';
 
 export function* signIn({ payload }) {
   try {
@@ -23,6 +24,7 @@ export function* signIn({ payload }) {
         title: 'Logado com sucesso',
       }))
       yield put(signInSuccess(token, user));
+      yield put(push('/hotel'));
     }
   } catch (err) {
     yield put(toastrActions.add({

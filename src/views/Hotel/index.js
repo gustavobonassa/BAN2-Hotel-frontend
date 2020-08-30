@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getHotelsRequest } from "store/modules/hotel/actions";
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
+import { delHotelRequest } from "store/modules/hotel/actions";
 
 
 const Hotel = () => {
@@ -51,10 +52,16 @@ const Hotel = () => {
                           <td>{hotel.nome}</td>
                           <td>{hotel.telefone}</td>
                           <td>{hotel.rua}</td>
-                          <td>
+                          <td className="text-right">
                             <Link to={`/hotel/${hotel.id}`}>
                               <FaEye />
                             </Link>
+                            <button
+                              className="btn-link btn btn-danger btn-sm"
+                              onClick={() => dispatch(delHotelRequest(hotel.id))}
+                            >
+                              <i className="tim-icons icon-simple-remove"></i>
+                            </button>
                           </td>
                         </tr>
                       ))}

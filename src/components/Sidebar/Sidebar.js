@@ -139,7 +139,7 @@ class Sidebar extends React.Component {
                     <i>
                       <Icon />
                     </i>
-                    <p>{rtlActive ? prop.rtlName : prop.name}</p>
+                    <p style={{ fontSize: 14 }}>{prop.name}</p>
                   </NavLink>
                 </li>
               );
