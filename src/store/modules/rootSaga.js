@@ -7,6 +7,7 @@ import tipoQuarto from './tipoQuarto/sagas';
 import quarto from './quarto/sagas';
 import reserva from './reserva/sagas';
 import estadia from './estadia/sagas';
+import empregado from './empregado/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -17,5 +18,6 @@ export default function* rootSaga() {
     quarto,
     reserva,
     estadia,
+    empregado,
   ]);
 }

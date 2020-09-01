@@ -4,7 +4,7 @@ import NovoHotel from "views/Hotel/NovoHotel.js";
 import HotelInfo from "views/Hotel/HotelInfo.js";
 import Cliente from "views/Cliente";
 import NovoCliente from "views/Cliente/NovoCliente";
-import { FaHotel, FaUser } from "react-icons/fa"
+import { FaHotel, FaUser, FaRegUser } from "react-icons/fa"
 
 import Login from "./views/Login";
 import history from "./history";
@@ -18,6 +18,8 @@ import NovoQuarto from "views/Quarto/NovoQuarto";
 import NovoTipoQuarto from "views/TipoQuarto/NovoTipoQuarto";
 import NovaReserva from "views/Reserva/NovaReserva";
 import NovaEstadia from "views/Estadia/NovaEstadia";
+import Empregado from "views/Empregado";
+import NovoEmpregado from "views/Empregado/NovoEmpregado";
 
 var routes = [
   {
@@ -32,6 +34,13 @@ var routes = [
     name: "Clientes",
     icon: () => <FaUser size={15} />,
     component: Cliente,
+    layout: ""
+  },
+  {
+    path: "/empregados",
+    name: "Empregados",
+    icon: () => <FaRegUser size={15} color="#fff" />,
+    component: Empregado,
     layout: ""
   },
 ];
@@ -57,7 +66,9 @@ const Routes = () => {
             <Route exact path="/hotel/:idHotel/estadia/:id" render={props => <AdminLayout {...props} content={NovaEstadia} />} />
             <Route exact path="/clientes" render={props => <AdminLayout {...props} content={Cliente} />} />
             <Route exact path="/novocliente" render={props => <AdminLayout {...props} content={NovoCliente} />} />
-            <Redirect exact path="/" to="/hotel" />
+            <Route exact path="/empregados" render={props => <AdminLayout {...props} content={Empregado} />} />
+            <Route exact path="/novoempregado" render={props => <AdminLayout {...props} content={NovoEmpregado} />} />
+            <Redirect exact from="/" to="/hotel" />
           </>
         ) : (
           <>

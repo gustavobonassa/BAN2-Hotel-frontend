@@ -40,11 +40,18 @@ export function* newQuarto({ payload }) {
     if (response) {
       const quarto = response.data;
 
-      yield put(toastrActions.add({
-        type: 'success',
-        title: 'Quarto criado com sucesso',
-      }));
-      yield put(push('/hotel/'+quarto.id_hotel));
+      if (quarto.error) {
+        yield put(toastrActions.add({
+          type: 'error',
+          title: 'Quarto ja existe',
+        }))
+      } else {
+        yield put(toastrActions.add({
+          type: 'success',
+          title: 'Quarto criado com sucesso',
+        }));
+        yield put(push('/hotel/'+quarto.id_hotel));
+      }
     }
   } catch (err) {
 
