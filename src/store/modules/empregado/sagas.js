@@ -12,7 +12,7 @@ export function* getEmpregado({ payload }) {
 
     if (response) {
       const empregados = response.data;
-
+      console.log(empregados)
       yield put(getEmpregadosSuccess(empregados));
     }
   } catch (err) {

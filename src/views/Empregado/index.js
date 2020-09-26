@@ -42,11 +42,11 @@ const Empregado = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {empregados.map((empregado, i) => (
+                    {empregados.length && (empregados || []).map((empregado, i) => (
                       <tr key={i}>
                         <td>{empregado.nome}</td>
                         <td>{empregado.rg}</td>
-                        <td>{empregado.nomeHotel}</td>
+                        <td>{empregado.nomehotel}</td>
                       </tr>
                     ))}
                   </tbody>
