@@ -33,7 +33,7 @@ const NovaEstadia = (props) => {
   const quartos = useSelector(state => state.quarto.quarto);
 
   React.useEffect(() => {
-    dispatch(getQuartoRequest(parseInt(idHotel)));
+    dispatch(getQuartoRequest(idHotel));
   }, [dispatch, idHotel]);
 
   const submitForm = () => {

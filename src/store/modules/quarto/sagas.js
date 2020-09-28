@@ -34,7 +34,7 @@ export function* newQuarto({ payload }) {
   } = payload.quartoInfo;
   try {
     const response = yield call(api.post, 'quarto', {
-      numero: parseInt(numero), andar: parseInt(andar), id_tipo_quarto: parseInt(tipo), id_hotel: id
+      numero: numero, andar: andar, id_tipo_quarto: tipo, id_hotel: id
     });
 
     if (response) {

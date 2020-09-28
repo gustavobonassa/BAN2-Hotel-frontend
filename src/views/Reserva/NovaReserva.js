@@ -41,7 +41,7 @@ const NovaReserva = (props) => {
   }, [tipoQuarto]);
 
   React.useEffect(() => {
-    dispatch(getTipoQuartoRequest(parseInt(id)));
+    dispatch(getTipoQuartoRequest(id));
     dispatch(getClientesRequest());
   }, [dispatch, id]);
 

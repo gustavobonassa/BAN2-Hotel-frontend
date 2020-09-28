@@ -29,7 +29,7 @@ export function* newEmpregado({ payload }) {
   } = payload.empregadoInfo;
   try {
     const response = yield call(api.post, 'empregado', {
-      nome, rg, login, senha, id_hotel: parseInt(id_hotel),
+      nome, rg, login, senha, id_hotel: id_hotel,
     });
 
     const empregado = response.data;

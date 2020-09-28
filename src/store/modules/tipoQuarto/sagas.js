@@ -10,14 +10,16 @@ export function* getTipoQuarto({ payload }) {
   const {
     idHotel,
   } = payload;
-  console.log(idHotel)
+
   try {
     const response = yield call(api.get, `tipoquarto/${idHotel}`);
 
     if (response) {
       const tipoquarto = response.data;
-
-      yield put(getTipoQuartoSuccess(tipoquarto));
+      console.log(response, idHotel)
+      if (!tipoquarto.error) {
+        yield put(getTipoQuartoSuccess(tipoquarto));
+      }
     }
   } catch (err) {
 

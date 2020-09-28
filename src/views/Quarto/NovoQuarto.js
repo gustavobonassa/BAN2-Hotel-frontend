@@ -37,7 +37,7 @@ const NovoQuarto = (props) => {
   }, [tipoQuarto]);
 
   React.useEffect(() => {
-    dispatch(getTipoQuartoRequest(parseInt(id)));
+    dispatch(getTipoQuartoRequest(id));
   }, [dispatch, id]);
 
   const submitForm = () => {
@@ -79,7 +79,7 @@ const NovoQuarto = (props) => {
                         value={tipo}
                         onChange={(e) => setTipo(e.target.value)}
                       >
-                        {tipoQuarto.map(tipo => (
+                        {!tipoQuarto.error && (tipoQuarto || []).map(tipo => (
                           <option value={tipo.id}>{tipo.tipo}</option>
                         ))}
                       </Input>

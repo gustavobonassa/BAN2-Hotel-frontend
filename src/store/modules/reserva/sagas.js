@@ -11,7 +11,7 @@ export function* newReserva({ payload }) {
   } = payload.reservaInfo;
   try {
     const response = yield call(api.post, 'reserva', {
-      id_cliente: parseInt(cliente), id_tipo_quarto: parseInt(tipo), id_hotel: parseInt(id), dataentrada: dataEntrada, datasaida: dataSaida
+      id_cliente: cliente, id_tipo_quarto: tipo, id_hotel: id, dataentrada: dataEntrada, datasaida: dataSaida
     });
 
     if (response) {

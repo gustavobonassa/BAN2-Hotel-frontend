@@ -71,8 +71,8 @@ const Hotel = (props) => {
                     <tbody>
                       {(hotel.reservas || []).map((reserva, i) => (
                         <tr key={i}>
-                          <td>{reserva.id}</td>
-                          <td>{reserva.nome}</td>
+                          <td>{i}</td>
+                          <td>{reserva.nome || reserva._id}</td>
                           <td>
                             <Moment format="DD/MM/YYYY">{reserva.dataentrada}</Moment>
                           </td>
@@ -82,7 +82,7 @@ const Hotel = (props) => {
                           <td className="text-right">
                             <Link
                               className="btn-link btn btn-info btn-sm"
-                              to={`/hotel/${id}/estadia/${reserva.id}`}
+                              to={`/hotel/${id}/estadia/${reserva._id}`}
                             >
                               <MdHotel />
                             </Link>
@@ -129,7 +129,7 @@ const Hotel = (props) => {
                       {(hotel.estadias || []).map((estadia, i) => (
                         <tr key={i}>
                           <td>{estadia.id}</td>
-                          <td>{estadia.nome}</td>
+                          <td>{estadia.nome || estadia._id}</td>
                           <td>Andar: {estadia.andar} Num: {estadia.numero}</td>
                           <td>
                             <Moment format="DD/MM/YYYY">{estadia.dataentrada}</Moment>

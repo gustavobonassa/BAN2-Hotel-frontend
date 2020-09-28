@@ -34,7 +34,7 @@ const hotels = useSelector(state => state.hotel.hotels);
 
   const submitForm = () => {
     const empregadoInfo = {
-      nome, rg, login, senha, id_hotel: parseInt(hotel)
+      nome, rg, login, senha, id_hotel: hotel
     }
     dispatch(newEmpregadoRequest(empregadoInfo));
   }

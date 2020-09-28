@@ -12,7 +12,7 @@ export function* newEstadia({ payload }) {
 
   try {
     const response = yield call(api.post, 'estadia', {
-      id_quarto: parseInt(quarto), dataentrada: dataEntrada, datasaida: dataSaida, id_reserva: parseInt(id)
+      id_quarto: quarto, dataentrada: dataEntrada, datasaida: dataSaida, id_reserva: id, id_hotel: idHotel
     });
 
     if (response.data.error) {
