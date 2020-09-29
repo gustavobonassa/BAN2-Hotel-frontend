@@ -62,7 +62,7 @@ const Hotel = (props) => {
                     <thead className="text-primary">
                       <tr>
                         <th>Id</th>
-                        <th>Nome do cliente</th>
+                        <th>Id do cliente</th>
                         <th>Data entrada</th>
                         <th>Data saída</th>
                         <th></th>
@@ -118,7 +118,7 @@ const Hotel = (props) => {
                     <thead className="text-primary">
                       <tr>
                         <th>Id</th>
-                        <th>Nome do cliente</th>
+                        <th>Id do cliente</th>
                         <th>Quarto</th>
                         <th>Data entrada</th>
                         <th>Data saída</th>
